@@ -10,7 +10,11 @@ module.exports = {
           primaryKey: true,
           type: Sequelize.INTEGER,
         },
-        displayName: {
+        userName: {
+          allowNull: false,
+          type: Sequelize.STRING,
+        },
+        role: {
           allowNull: false,
           type: Sequelize.STRING,
         },
@@ -23,10 +27,7 @@ module.exports = {
           allowNull: false,
           type: Sequelize.STRING,
         },
-        image: {
-          allowNull: false,
-          type: Sequelize.STRING,
-        },
+        test: {}
       },
       { timestamps: false }
     );
