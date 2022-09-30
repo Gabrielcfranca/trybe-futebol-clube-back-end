@@ -19,7 +19,7 @@ User.init({
     primaryKey: true,
     type: INTEGER,
   },
-  userName: {
+  username: {
     allowNull: false,
     type: STRING,
   },

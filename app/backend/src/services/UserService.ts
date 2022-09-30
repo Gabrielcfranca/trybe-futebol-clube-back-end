@@ -1,6 +1,6 @@
 import * as bcrypt from 'bcryptjs';
-import { ILogin } from '../interfaces.ts/ILogin';
-import IUser from '../interfaces.ts/IUser';
+import { ILogin } from '../interfaces/ILogin';
+import IUser from '../interfaces/IUser';
 import UserModel from '../database/models/UserModel';
 import HttpError from '../errors/httpError';
 
