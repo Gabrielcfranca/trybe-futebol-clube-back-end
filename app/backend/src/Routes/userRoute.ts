@@ -1,9 +1,9 @@
 import { Router } from 'express';
-import UserController from '../controllers/UserController';
+// import UserController from '../controllers/UserController';
 // import tokenValidation from '../middlewares/tokenValidation';
 
 const userRoute = Router();
-const userController = new UserController();
+// const userController = new UserController();
 
 // userRoute.post('/', userController.create);
 

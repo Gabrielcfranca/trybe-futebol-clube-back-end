@@ -1,6 +1,6 @@
 import * as Joi from 'joi';
 
-const REQUIRED_FIELD = 'Some required fields are missing';
+const REQUIRED_FIELD = 'All fields must be filled';
 const MIN_LENGTH = '{#label} length must be at least {#limit} characters long';
 // const CATEGORY_NAME_MISSING = '{#label} is required';
 

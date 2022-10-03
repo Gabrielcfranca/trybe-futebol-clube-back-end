@@ -19,7 +19,7 @@ export default class UserService {
 
   private validateEmail = async (email: string): Promise<IUser> => {
     const result = await this.findByEmail(email);
-    if (!result) throw new HttpError(401, 'Email or password invalid');
+    if (!result) throw new HttpError(401, 'Incorrect email or password');
     return result;
   };
 
@@ -29,5 +29,12 @@ export default class UserService {
     const passVerify = bcrypt.compareSync(password, validateEmail.password);
 
     if (!passVerify) throw new HttpError(401, 'Incorrect email or password');
+  };
+
+  public role = async (email: string): Promise<{ role: string }> => {
+    const roleEmail = await this.findByEmail(email);
+    const { role } = roleEmail as IUser;
+
+    return { role };
   };
 }
