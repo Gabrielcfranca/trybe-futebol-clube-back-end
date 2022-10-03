@@ -16,4 +16,4 @@ const loginSchema = Joi.object({
   }),
 });
 
-export default { loginSchema };
+export default loginSchema;
