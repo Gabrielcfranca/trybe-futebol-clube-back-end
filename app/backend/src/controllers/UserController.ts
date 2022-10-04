@@ -8,7 +8,7 @@ const JWT_SECRET = 'validateToken';
 export default class UserController {
   constructor(private userService = new UserService()) {}
 
-  public login = async (req: Request, res: Response, next: NextFunction) => {
+  public login = async (req: Request, res: Response) => {
     try {
       const { email, password } = req.body;
       await this.userService.login({ email, password });
@@ -16,19 +16,19 @@ export default class UserController {
       const token = jwt.sign({ email }, JWT_SECRET, {
         expiresIn: '6d',
       });
-      next();
       return res.status(200).json({ token });
     } catch (error: any) {
       return res.status(400).json({ message: error.message });
     }
   };
 
-  public role = async (req: ReqData, res: Response, next: NextFunction) => {
+  public role = async (req: ReqData, res: Response, next: NextFunction): Promise<void> => {
+    console.log(req, 'log req');
     try {
-      const { data } = req;
-      const { email } = data as TokenData;
+      const { email } = req.body as TokenData;
+      console.log(email, 'Email Log');
       const roleEmail = await this.userService.role(email);
-      return res.status(200).json(roleEmail);
+      res.status(200).json(roleEmail);
     } catch (error) {
       next(error);
     }

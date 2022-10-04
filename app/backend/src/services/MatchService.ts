@@ -1,20 +1,25 @@
-// import { ITeam } from '../interfaces/ITeam';
-import { ITeam } from '../interfaces/ITeam';
 import Match from '../database/models/MatchModel';
-import HttpError from '../errors/httpError';
+// import HttpError from '../errors/httpError';
+import { IMatch, IMatchTeams } from '../interfaces/IMatch';
+import TeamModel from '../database/models/TeamModel';
 
 export default class MatchService {
   private _model = Match;
 
-  public findAll = async (): Promise<ITeam[]> => {
-    const matches = await this._model.findAll();
+  public findAll = async (): Promise<IMatch[]> => {
+    const matches = await this._model.findAll({
+      include: [
+        { model: TeamModel, as: 'teamHome', attributes: { exclude: ['id'] } },
+        { model: TeamModel, as: 'teamAway', attributes: { exclude: ['id'] } },
+      ],
+    });
 
-    return matches;
+    return matches as IMatchTeams[];
   };
 
-  public getById = async (id: string): Promise<ITeam> => {
-    const byId = await this._model.findByPk(id);
-    if (!byId) throw new HttpError(404, 'Team not found');
-    return byId;
-  };
+  // public getById = async (id: string): Promise<IMatch> => {
+  //   const byId = await this._model.findByPk(id);
+  //   if (!byId) throw new HttpError(404, 'Team not found');
+  //   return byId;
+  // };
 }
