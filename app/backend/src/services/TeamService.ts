@@ -13,7 +13,7 @@ export default class TeamService {
 
   public getById = async (id: string): Promise<ITeam> => {
     const byId = await this._model.findByPk(id);
-    if (!byId) throw new HttpError(404, 'Team not found');
+    if (!byId) throw new HttpError('Team not found', 404);
     return byId;
   };
 }

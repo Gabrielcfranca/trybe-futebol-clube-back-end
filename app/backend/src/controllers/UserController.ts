@@ -26,7 +26,7 @@ export default class UserController {
     console.log(req, 'log req');
     try {
       const { email } = req.body as TokenData;
-      console.log(email, 'Email Log');
+      console.log(email, 'log email usercontroller');
       const roleEmail = await this.userService.role(email);
       res.status(200).json(roleEmail);
     } catch (error) {

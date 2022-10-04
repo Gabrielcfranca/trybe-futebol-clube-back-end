@@ -1,4 +1,5 @@
 import * as express from 'express';
+import MiddlewareError from './middlewares/middlewareError';
 import Routes from './Routes';
 
 class App {
@@ -25,6 +26,7 @@ class App {
     this.app.use(accessControl);
     this.app.use('/login', Routes.loginRoute);
     this.app.use('/teams', Routes.teamRouter);
+    this.app.use(new MiddlewareError().handleError);
   }
 
   public start(PORT: string | number):void {

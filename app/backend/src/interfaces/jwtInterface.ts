@@ -8,9 +8,9 @@ export interface IJwt {
 
 export interface TokenData {
   email: string,
-  password: string
+  password: string,
 }
 
 export interface ReqData extends Request {
-  data?: TokenData,
+  data?: TokenData | string,
 }
