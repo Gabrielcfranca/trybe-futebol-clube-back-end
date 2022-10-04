@@ -1,7 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import * as jwt from 'jsonwebtoken';
-import { ReqData, TokenData } from '../interfaces/jwtInterface';
 import UserService from '../services/UserService';
+import HttpError from '../errors/httpError';
+import { ReqData, TokenData } from '../interfaces/jwtInterface';
 
 const JWT_SECRET = 'validateToken';
 
@@ -17,19 +18,25 @@ export default class UserController {
         expiresIn: '6d',
       });
       return res.status(200).json({ token });
-    } catch (error: any) {
-      return res.status(400).json({ message: error.message });
+    } catch (error) {
+      console.log(error);
+      if (error instanceof HttpError) {
+        return res.status(401).json({ message: (error as HttpError).message });
+      }
     }
   };
 
   public role = async (req: ReqData, res: Response, next: NextFunction): Promise<void> => {
-    console.log(req, 'log req');
+    const auth = req.headers.authorization;
+    if (!auth) res.status(401).json({ message: 'Token not found' });
     try {
-      const { email } = req.body as TokenData;
-      console.log(email, 'log email usercontroller');
+      const { data } = req;
+      console.log(data, 'log tokendata');
+      const { email } = data as TokenData;
       const roleEmail = await this.userService.role(email);
       res.status(200).json(roleEmail);
     } catch (error) {
+      console.log(error);
       next(error);
     }
   };

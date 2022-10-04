@@ -6,6 +6,6 @@ export interface IError extends Error {
 
 export default class MiddlewareError {
   public handleError = (error: IError, _req: Request, res: Response, _next: NextFunction):void => {
-    res.status(error.status).json({ message: error.message });
+    res.status(error.status || 500).json({ message: error.message });
   };
 }
