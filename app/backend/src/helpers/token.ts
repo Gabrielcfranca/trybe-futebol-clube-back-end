@@ -10,10 +10,10 @@ const createToken = (payload: IJwt) => {
   return token;
 };
 
-const verifyToken = (token: string): string => {
+const verifyToken = (token: string): JwtPayload => {
   const payload = jwt.verify(token, JWT_SECRET);
   console.log(payload, 'log do payload');
-  return payload as string;
+  return payload as JwtPayload;
 };
 
 export { createToken, verifyToken };

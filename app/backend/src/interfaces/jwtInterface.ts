@@ -12,5 +12,5 @@ export interface TokenData {
 }
 
 export interface ReqData extends Request {
-  data?: TokenData | string,
+  data?: TokenData,
 }
