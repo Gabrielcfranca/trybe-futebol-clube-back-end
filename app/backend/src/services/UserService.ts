@@ -14,7 +14,7 @@ export default class UserService {
     const result = await this._model.findOne({
       where: { email },
     });
-    console.log(result, 'log do result');
+    // console.log(result, 'log do result');
     return result;
   };
 

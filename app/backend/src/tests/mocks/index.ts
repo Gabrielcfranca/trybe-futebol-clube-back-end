@@ -1,9 +1,24 @@
+import * as bcrypt from 'bcryptjs';
+
 const mockLogin = {
-  username: 'Admin',
-  role: 'admin',
-  email: 'admin@admin.com',
-  password: '$2a$08$xi.Hxk1czAO0nZR..B393u10aED0RQ1N3PAEXQ7HxtLjKPEZBu.PW'
+  email: "testeemmail@teste.com",
+  password: bcrypt.hashSync("userteste2"),
     // senha: secret_admin
 }
 
-export { mockLogin };
+const mockUserValid = {
+  email: "testeemmail@teste.com",
+  password: "userteste2",
+}
+
+const mockEmailInvalid = {
+  email: "Qualqueremail",
+  password: "userteste2",
+}
+
+const mockPasswordInvalid = {
+  email: "testeemail@teste.com",
+  password: "adsl;kfh",
+}
+
+export { mockLogin, mockUserValid, mockEmailInvalid, mockPasswordInvalid };
