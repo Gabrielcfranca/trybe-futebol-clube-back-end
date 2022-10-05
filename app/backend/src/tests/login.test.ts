@@ -7,6 +7,7 @@ import { app } from '../app';
 
 import { Response } from 'superagent';
 import User from '../database/models/UserModel';
+import { mockLogin } from './mocks';
 
 chai.use(chaiHttp);
 
@@ -17,6 +18,7 @@ describe('/login', () => {
    * Exemplo do uso de stubs com tipos
    */
   let chaiHttpResponse: Response;
+
   describe('Verifica um usuário é válido', () => {
     before(async () => {
       sinon
@@ -30,13 +32,13 @@ describe('/login', () => {
       (User.findOne as sinon.SinonStub).restore();
     })
   
-    it('Deve verificar um usuário', async () => {
-      chaiHttpResponse = await chai
-         .request(app)
-         ...
-  
-      expect(...)
-    });
+    // it('Deve verificar um usuário', async () => {
+    //   chaiHttpResponse = await chai
+    //      .request(app)
+    //      .post('/login')
+    //      .header({'token': 'asdfkajsdhfkl'})
+    //   expect(...)
+    // });
 
   })
 
