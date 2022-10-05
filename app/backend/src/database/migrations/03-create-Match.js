@@ -22,7 +22,7 @@ module.exports = {
         away_team: {
           allowNull: false,
           type: Sequelize.INTEGER,
-          unique: true,
+          // unique: true,
           foreignKey: true,
         },
         away_team_goals: {
@@ -31,7 +31,7 @@ module.exports = {
         },
         in_progress: {
           allowNull: false,
-          type: Sequelize.INTEGER,
+          type: Sequelize.BOOLEAN,
         }
       },
       { timestamps: false }

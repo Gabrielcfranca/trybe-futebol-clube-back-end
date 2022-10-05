@@ -17,9 +17,9 @@ export default class MatchService {
     return matches as IMatchTeams[];
   };
 
-  // public getById = async (id: string): Promise<IMatch> => {
-  //   const byId = await this._model.findByPk(id);
-  //   if (!byId) throw new HttpError(404, 'Team not found');
-  //   return byId;
-  // };
+// public getById = async (id: string): Promise<IMatch> => {
+//   const byId = await this._model.findByPk(id);
+//   if (!byId) throw new HttpError(404, 'Team not found');
+//   return byId;
+// };
 }
