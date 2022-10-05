@@ -11,7 +11,7 @@ Response | void => {
   try {
     const result = verifyToken(token);
     // console.log(req.userId, 'log req.userId');
-    console.log(result, 'log result');
+    // console.log(result, 'log result');
     req.data = result as TokenData;
     return next();
   } catch (error) {
