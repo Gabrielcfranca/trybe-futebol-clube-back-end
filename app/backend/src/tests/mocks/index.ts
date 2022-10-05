@@ -21,4 +21,19 @@ const mockPasswordInvalid = {
   password: "adsl;kfh",
 }
 
-export { mockLogin, mockUserValid, mockEmailInvalid, mockPasswordInvalid };
+const emptyEmail = {
+  password: "userteste2",
+}
+
+const emptyPassword = {
+  email: "testeemail@teste.com"
+}
+
+export { 
+  mockLogin,
+  mockUserValid,
+  mockEmailInvalid,
+  mockPasswordInvalid,
+  emptyEmail,
+  emptyPassword,
+};

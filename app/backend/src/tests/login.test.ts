@@ -7,7 +7,7 @@ import { app } from '../app';
 
 import { Response } from 'superagent';
 import User from '../database/models/UserModel';
-import { mockEmailInvalid, mockLogin, mockPasswordInvalid, mockUserValid } from './mocks';
+import { emptyEmail, emptyPassword, mockEmailInvalid, mockLogin, mockPasswordInvalid, mockUserValid } from './mocks';
 import { response } from 'express';
 
 chai.use(chaiHttp);
@@ -58,7 +58,7 @@ describe('POST /login', () => {
       chaiHttpResponse = await chai
          .request(app)
          .post('/login')
-         .send(mockUserValid);
+         .send(mockEmailInvalid);
 
       expect(chaiHttpResponse.body).to.be.deep.equal({ message: 'Incorrect email or password' });
       expect(chaiHttpResponse.status).to.be.equal(401);
@@ -86,6 +86,30 @@ describe('POST /login', () => {
 
       expect(chaiHttpResponse.body).to.be.deep.equal({ message: 'Incorrect email or password' });
       expect(chaiHttpResponse.status).to.be.equal(401);
+    });
+  });
+
+  describe('Verifica se email está vazio', () => {
+        it('Retorna um erro 400, email', async () => {
+      chaiHttpResponse = await chai
+         .request(app)
+         .post('/login')
+         .send(emptyEmail);
+
+      expect(chaiHttpResponse.body).to.be.deep.equal({ message: 'All fields must be filled' });
+      expect(chaiHttpResponse.status).to.be.equal(400);
+    });
+  });
+
+  describe('Verifica se password está vazio', () => {
+        it('Retorna um erro 400, password', async () => {
+      chaiHttpResponse = await chai
+        .request(app)
+        .post('/login')
+        .send(emptyPassword);
+
+      expect(chaiHttpResponse.body).to.be.deep.equal({ message: 'All fields must be filled' });
+      expect(chaiHttpResponse.status).to.be.equal(400);
     });
   });
 });
