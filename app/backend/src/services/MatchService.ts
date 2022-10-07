@@ -6,8 +6,19 @@ import TeamModel from '../database/models/TeamModel';
 export default class MatchService {
   private _model = Match;
 
-  public findAll = async (): Promise<IMatch[]> => {
+  public findAll = async (inProgress: boolean | undefined): Promise<IMatch[]> => {
+    // console.log(inProgress, 'log do inProgress');
+    if (inProgress === undefined) {
+      const matches = await this._model.findAll({
+        include: [
+          { model: TeamModel, as: 'teamHome', attributes: { exclude: ['id'] } },
+          { model: TeamModel, as: 'teamAway', attributes: { exclude: ['id'] } },
+        ],
+      });
+      return matches as IMatchTeams[];
+    }
     const matches = await this._model.findAll({
+      where: { inProgress },
       include: [
         { model: TeamModel, as: 'teamHome', attributes: { exclude: ['id'] } },
         { model: TeamModel, as: 'teamAway', attributes: { exclude: ['id'] } },
@@ -17,9 +28,25 @@ export default class MatchService {
     return matches as IMatchTeams[];
   };
 
-// public getById = async (id: string): Promise<IMatch> => {
-//   const byId = await this._model.findByPk(id);
-//   if (!byId) throw new HttpError(404, 'Team not found');
-//   return byId;
-// };
+  // private setIds = async (team: IMatch) => {
+  //   const homeTeamID =
+  // }
+
+  public createMatches = async (match: IMatch): Promise<IMatch> => {
+    console.log(match, 'log match do service');
+    // const matches = await this._model.create({
+    //   homeTeam,
+    //   awayTeam,
+    //   homeTeamGoals,
+    //   awayTeamGoals,
+    //   inProgress,
+    //   include: [
+    //     { model: TeamModel, as: 'teamHome', attributes: { exclude: ['id'] } },
+    //     { model: TeamModel, as: 'teamAway', attributes: { exclude: ['id'] } },
+    //   ],
+    // });
+    const matches = await this._model.create(match);
+    console.log(matches);
+    return matches;
+  };
 }

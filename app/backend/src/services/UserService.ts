@@ -6,9 +6,6 @@ import HttpError from '../errors/httpError';
 
 export default class UserService {
   private _model = UserModel;
-  // constructor(private _model: UserModel) {
-  //   this._model = new UserModel();
-  // }
 
   private findByEmail = async (email: string): Promise<IUser | null> => {
     const result = await this._model.findOne({

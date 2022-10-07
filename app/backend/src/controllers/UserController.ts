@@ -1,11 +1,12 @@
 import { Request, Response } from 'express';
-import * as jwt from 'jsonwebtoken';
+// import * as jwt from 'jsonwebtoken';
 import UserService from '../services/UserService';
 import HttpError from '../errors/httpError';
 import { ReqData, TokenData } from '../interfaces/jwtInterface';
-// import { IError } from '../middlewares/middlewareError';
+import 'dotenv/config';
+import { createToken } from '../helpers/token';
 
-const JWT_SECRET = 'validateToken';
+// const JWT_SECRET = process.env.JWT_SECRET || 'validateToken';
 
 export default class UserController {
   constructor(private userService = new UserService()) {}
@@ -15,9 +16,7 @@ export default class UserController {
       const { email, password } = req.body;
       await this.userService.login({ email, password });
       // if (!result) return res.status(400).json({ message: 'Invalid fields' });
-      const token = jwt.sign({ email }, JWT_SECRET, {
-        expiresIn: '6d',
-      });
+      const token = createToken({ email, password });
       return res.status(200).json({ token });
     } catch (error) {
       console.log(error);
@@ -29,7 +28,7 @@ export default class UserController {
 
   public role = async (req: ReqData, res: Response) => {
     try {
-      console.log(req.data, 'log tokendata');
+      // console.log(req.data, 'log tokendata');
       const { data } = req;
       const { email } = data as TokenData;
       const roleEmail = await this.userService.role(email);
