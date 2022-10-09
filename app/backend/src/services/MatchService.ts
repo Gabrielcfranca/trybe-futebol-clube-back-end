@@ -28,25 +28,25 @@ export default class MatchService {
     return matches as IMatchTeams[];
   };
 
-  // private setIds = async (team: IMatch) => {
-  //   const homeTeamID =
-  // }
+  private setIds = async (home: number, away: number) => {
+    const homeTeamID = await TeamModel.findByPk(home);
+    console.log(homeTeamID, 'log home id setIDS');
+
+    const awayTeamID = await TeamModel.findByPk(away);
+    console.log(awayTeamID, 'log home id setIDS');
+  };
 
   public createMatches = async (match: IMatch): Promise<IMatch> => {
     console.log(match, 'log match do service');
-    // const matches = await this._model.create({
-    //   homeTeam,
-    //   awayTeam,
-    //   homeTeamGoals,
-    //   awayTeamGoals,
-    //   inProgress,
-    //   include: [
-    //     { model: TeamModel, as: 'teamHome', attributes: { exclude: ['id'] } },
-    //     { model: TeamModel, as: 'teamAway', attributes: { exclude: ['id'] } },
-    //   ],
-    // });
-    const matches = await this._model.create(match);
-    console.log(matches);
-    return matches;
+    await this.setIds(match.homeTeam, match.awayTeam);
+    const matches = {
+      ...match,
+      inProgress: !match.inProgress,
+      homeTeamGoals: !match.homeTeamGoals ? 0 : match.homeTeamGoals,
+      awayTeamGoals: !match.awayTeamGoals ? 0 : match.awayTeamGoals,
+    };
+    const matchesCreated = await this._model.create(matches);
+    // console.log(matches);
+    return matchesCreated;
   };
 }

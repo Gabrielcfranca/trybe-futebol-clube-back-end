@@ -27,10 +27,10 @@ export default class MatchController {
       const { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals, inProgress } = req.body;
       const match = await this._matchService
         .createMatches({ homeTeam, awayTeam, homeTeamGoals, awayTeamGoals, inProgress });
-      console.log(match);
+      // console.log(match);
       res.status(201).json(match);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       next(error);
     }
   };
