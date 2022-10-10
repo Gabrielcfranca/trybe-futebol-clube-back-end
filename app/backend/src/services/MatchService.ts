@@ -57,4 +57,12 @@ export default class MatchService {
     if (!findMatch) throw new HttpError('Match not Found', 404);
     this._model.update({ inProgress: 'false' }, { where: { id } });
   };
+
+  public updateInProgressMatches = async (id:string, homeTeamGoals: number, awayTeamGoals: number)
+  : Promise<void> => {
+    const findMatch = await this._model.findByPk(id);
+    if (!findMatch) throw new HttpError('Match not Found', 404);
+    await this._model
+      .update({ homeTeamGoals, awayTeamGoals }, { where: { id } });
+  };
 }
