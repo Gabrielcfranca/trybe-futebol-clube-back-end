@@ -6,7 +6,6 @@ import chaiHttp = require('chai-http');
 import { app } from '../app';
 import Team from '../database/models/TeamModel';
 import { mockTeams, mockTeamsId } from './mocks/teamMocks';
-import { error } from 'console';
 
 chai.use(chaiHttp);
 
@@ -103,7 +102,7 @@ describe('get /Teams/id:', () => {
       .request(app)
       .get('/teams');
 
-      // expect(chaiHttpResponse.body).to.be.deep.equal({ message: Error })
+      // expect(chaiHttpResponse.body).to.be.deep.equal({ message: error.message })
       expect(chaiHttpResponse.status).to.be.equal(500);
   })
   })
