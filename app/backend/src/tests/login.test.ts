@@ -8,7 +8,6 @@ import { app } from '../app';
 import { Response } from 'superagent';
 import User from '../database/models/UserModel';
 import { emptyEmail, emptyPassword, mockEmailInvalid, mockLogin, mockPasswordInvalid, mockUserValid } from './mocks';
-import { response } from 'express';
 
 chai.use(chaiHttp);
 

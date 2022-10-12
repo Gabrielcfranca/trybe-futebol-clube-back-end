@@ -7,6 +7,12 @@ export interface IMatch {
   inProgress: number;
 }
 
+export interface ILeaderMatch extends IMatch {
+  id?: number;
+  homeTeamGoals?: number,
+  awayTeamGoals?: number,
+}
+
 export interface IMatchTeams extends IMatch {
   teamHome?: { teamName: string } | [{ teamName: string }],
   teamAway?: { teamName: string } | [{ teamAway: string }],
