@@ -5,7 +5,9 @@ import chaiHttp = require('chai-http');
 
 import { app } from '../app';
 import Match from '../database/models/MatchModel';
-import { mockMatches } from './mocks/matches';
+import { mockInvalidMatchTeams, mockMatches } from './mocks/matches';
+import TeamModel from '../database/models/TeamModel';
+import { mockToken } from './mocks';
 
 chai.use(chaiHttp);
 
@@ -56,7 +58,7 @@ describe('get /matches?inProgress=true', () => {
       const chaiHttpResponse = await chai
           .request(app)
           .get('/matches?inProgress=true');
-      console.log(chaiHttpResponse);
+      // console.log(chaiHttpResponse);
       
       const matchesTrue = chaiHttpResponse.body.every((match: { inProgress: boolean }) => match.inProgress === true)
       console.log(matchesTrue);
@@ -69,7 +71,7 @@ describe('get /matches?inProgress=true', () => {
 
 describe('get /matches?inProgress=false', () => {
 
-  describe('Verifica se as partidas em andamentos estão sendo enviadas', () => {
+  describe('Verifica se as partidas finalizadas estão sendo enviadas', () => {
     before(async () => {
       sinon
         .stub(Match, "findAll")
@@ -82,7 +84,7 @@ describe('get /matches?inProgress=false', () => {
       (Match.findAll as sinon.SinonStub).restore();
     })
   
-    it('Retorna uma partida em andamento', async () => {
+    it('Retorna uma partida finalizada', async () => {
       const chaiHttpResponse = await chai
           .request(app)
           .get('/matches?inProgress=false');
@@ -94,7 +96,57 @@ describe('get /matches?inProgress=false', () => {
           expect(chaiHttpResponse.status).to.be.equal(200);
     });
   })
+  describe ('Quando ocorre um erro interno', async () => {
+    before(async () => {
+      sinon
+      .stub(Match, "findAll")
+      .rejects();
+  });
+
+  after(()=>{
+    (Match.findAll as sinon.SinonStub).restore();
+  })
+
+  it('Informa o erro 500 com a error.message', async () => {
+    const chaiHttpResponse = await chai
+      .request(app)
+      .get('/matches');
+
+      expect(chaiHttpResponse.body).to.be.deep.equal({ message: 'Error'})
+      expect(chaiHttpResponse.status).to.be.equal(500);
+  })
+  })
 });
+
+describe('post /matches', () => {
+
+  describe('Verifica erros em caso de dados inválidos', () => {
+    before(() => {
+      sinon
+        .stub(TeamModel, "findByPk")
+        .resolves(
+          null as unknown as Match
+        );
+    });
+  
+    after(()=>{
+      (TeamModel.findAll as sinon.SinonStub).restore();
+    })
+  
+    it('Verifica se é enviado o erro 404', async () => {
+      const chaiHttpResponse = await chai
+          .request(app)
+          .post('/matches')
+          .set('authorization', mockToken)
+          .send(mockInvalidMatchTeams)
+      // console.log(chaiHttpResponse);
+      
+      expect(chaiHttpResponse.body).to.be.deep.equal({ message: 'There is no team with such id!' });
+      expect(chaiHttpResponse.status).to.be.equal(404);
+    });
+  })
+});
+
 //   describe ('Quando o id: é inválido', async () => {
 //     before(async () => {
 //       sinon

@@ -37,8 +37,7 @@ describe('get /Teams', () => {
   });
 });
 
-describe('get /Teams/id:', () => {
-
+describe('get /teams/id:', () => {
   describe('Verifica se os times estão sendo encontrados pelo Id', () => {
     before(async () => {
       sinon
@@ -62,6 +61,7 @@ describe('get /Teams/id:', () => {
           expect(chaiHttpResponse.status).to.be.equal(200);
     });
   })
+
   describe ('Quando o id: é inválido', async () => {
     before(async () => {
       sinon
@@ -97,12 +97,11 @@ describe('get /Teams/id:', () => {
   })
 
   it('Informa o erro 500 com a error.message', async () => {
-    const teamId = 50;
     const chaiHttpResponse = await chai
       .request(app)
       .get('/teams');
 
-      // expect(chaiHttpResponse.body).to.be.deep.equal({ message: error.message })
+      expect(chaiHttpResponse.body).to.be.deep.equal({ message: 'Error'})
       expect(chaiHttpResponse.status).to.be.equal(500);
   })
   })

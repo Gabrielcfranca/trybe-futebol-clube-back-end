@@ -112,3 +112,22 @@ describe('POST /login', () => {
     });
   });
 });
+
+describe('Quando ocorre um erro interno', () => {
+  before(async () => {
+    sinon.stub(User, 'findOne').rejects();
+  })
+
+  after(() => {
+    (User.findOne as sinon.SinonStub).restore();
+  })
+
+  it('Retorna "Something went wrong" com status 500', async () => {
+    const response = await chai.request(app)
+      .post('/login')
+      .send(mockUserValid);
+
+    expect(response.body).to.be.deep.equal({ message: 'Something went wrong' });
+    expect(response.status).to.be.equal(500);
+  });
+});

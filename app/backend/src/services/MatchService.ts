@@ -39,7 +39,7 @@ export default class MatchService {
   };
 
   public createMatches = async (match: IMatch): Promise<IMatch> => {
-    console.log(match, 'log match do service');
+    // console.log(match, 'log match do service');
     await this.setIds(match.homeTeam, match.awayTeam);
     const matches = {
       ...match,

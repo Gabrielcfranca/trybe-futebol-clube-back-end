@@ -1,4 +1,11 @@
 import * as bcrypt from 'bcryptjs';
+import { createToken } from '../../helpers/token';
+
+const mockUser = {
+  email: "ronaldo@fenomeno.com",
+  password: "EuSouRonaldo09",
+  role: "boleiro"
+};
 
 const mockLogin = {
   email: "testeemmail@teste.com",
@@ -10,6 +17,8 @@ const mockUserValid = {
   email: "testeemmail@teste.com",
   password: "userteste2",
 }
+
+const mockToken = createToken(mockUserValid);
 
 const mockEmailInvalid = {
   email: "Qualqueremail",
@@ -36,4 +45,6 @@ export {
   mockPasswordInvalid,
   emptyEmail,
   emptyPassword,
+  mockToken,
+  mockUser
 };
