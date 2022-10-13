@@ -5,7 +5,7 @@ import chaiHttp = require('chai-http');
 
 import { app } from '../app';
 import Match from '../database/models/MatchModel';
-import { mockInvalidMatchTeams, mockMatches } from './mocks/matches';
+import { mockInvalidMatchTeams, mockMatches, mockNewMatch, mockTeam, mockValidMatch } from './mocks/matches';
 import TeamModel from '../database/models/TeamModel';
 import { mockToken } from './mocks';
 
@@ -130,7 +130,7 @@ describe('post /matches', () => {
     });
   
     after(()=>{
-      (TeamModel.findAll as sinon.SinonStub).restore();
+      (TeamModel.findByPk as sinon.SinonStub).restore();
     })
   
     it('Verifica se é enviado o erro 404', async () => {
@@ -145,6 +145,50 @@ describe('post /matches', () => {
       expect(chaiHttpResponse.status).to.be.equal(404);
     });
   })
+
+  // describe('Ao ser chamada com dados validos', () => {
+  //   before(() => {
+  //     sinon.stub(TeamModel, 'findByPk').resolves(mockTeam as TeamModel);
+  //     sinon.stub(Match, 'create').resolves(mockNewMatch as Match);
+  //   })
+
+  //   after(() => {
+  //     (TeamModel.findByPk as sinon.SinonStub).restore();
+  //     (Match.create as sinon.SinonStub).restore();
+  //   });
+
+  //   it('Retorna os dados da partida adicionada com status 201', async () => {
+  //     const response = await chai.request(app)
+  //     .post('/matches')
+  //     .set('authorization', mockToken)
+  //     .send(mockValidMatch);
+
+  //     expect(response.body).to.be.deep.equal(mockNewMatch);
+  //     expect(response.status).to.be.equal(201);
+  //   })
+  // });
+
+  // describe('ao inserir dados corretos', () => {
+  //   before(() => {
+  //     sinon.stub(TeamModel, 'findByPk').resolves(mockTeam as TeamModel);
+  //     sinon.stub(Match, 'create').resolves(mockNewMatch as Match);
+  //   })
+  //   after(() => {
+  //     (TeamModel.findByPk as sinon.SinonStub).restore();
+  //     (Match.create as sinon.SinonStub).restore();
+  //   })
+
+  //   it( 'retorna a partida criada com status 201', async () => {
+  //     const result = await chai
+  //       .request(app)
+  //       .post('/matches')
+  //       .set('authorization', mockToken)
+  //       .send(mockValidMatch)
+
+  //     expect(result.body).to.be.deep.equal(mockNewMatch);
+  //     expect(result.body).to.be.equal(201);
+  //   })
+  // })
 });
 
 //   describe ('Quando o id: é inválido', async () => {

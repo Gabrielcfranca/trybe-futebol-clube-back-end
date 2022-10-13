@@ -56,4 +56,24 @@ describe('get /login/validate', () => {
       expect(result.status).to.be.equal(401);
     })
    })
+
+   describe('quando ocorre um erro interno', () => {
+    before(() => {
+      sinon.stub(User, 'findOne').rejects();
+    })
+    
+    after(() => {
+      (User.findOne as sinon.SinonStub).restore();
+    })
+
+    it('Retorna, "Error", com status 500', async () => {
+      const result = await chai
+        .request(app)
+        .get('/login/validate')
+        .set('authorization', mockToken);
+
+        expect(result.body).to.be.deep.equal({ message: 'Error' })
+        expect(result.status).to.be.equal(500);
+    })
+   })
 });

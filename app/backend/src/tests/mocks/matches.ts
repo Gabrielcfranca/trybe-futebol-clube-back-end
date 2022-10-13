@@ -29,6 +29,26 @@ const mockMatches = [
   },
 ]
 
+const mockTeam = {
+  id: 3,
+  teamName: "Botafogo"
+};
+
+const mockValidMatch = {
+  homeTeam: 16,
+  awayTeam: 8,
+  homeTeamGoals: 2,
+  awayTeamGoals: 2,
+};
+
+const mockNewMatch = {
+  homeTeam: 16,
+  awayTeam: 8,
+  homeTeamGoals: 2,
+  awayTeamGoals: 2,
+  inProgress: true
+};
+
 const mockInvalidMatchTeams = {
   homeTeam: 9999,
   awayTeam: 9998,
@@ -36,4 +56,10 @@ const mockInvalidMatchTeams = {
   awayTeamGoals: 0,
 };
 
-export { mockMatches, mockInvalidMatchTeams };
+export {
+  mockMatches,
+  mockInvalidMatchTeams,
+  mockTeam,
+  mockNewMatch,
+  mockValidMatch
+};
