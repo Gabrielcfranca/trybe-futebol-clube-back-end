@@ -28,6 +28,7 @@ class App {
     this.app.use('/login', Routes.loginRoute);
     this.app.use('/teams', Routes.teamRouter);
     this.app.use('/matches', Routes.matchRouter);
+    this.app.use('/leaderboard', Routes.leaderboardRouter);
     this.app.use(new MiddlewareError().handleError);
   }
 

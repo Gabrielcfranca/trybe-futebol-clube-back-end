@@ -10,3 +10,9 @@ export default interface ILeaderBoard {
   goalsBalance: number,
   efficiency: string,
 }
+
+export interface IEditedMatch {
+  currTeamName?: string;
+  currTeamGoals: number;
+  rivalTeamGoals: number;
+}

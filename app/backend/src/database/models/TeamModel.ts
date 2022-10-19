@@ -4,8 +4,8 @@ import db from '.';
 
 class TeamModel extends Model {
   // public <campo>!: <tipo>;
-  public id!: number;
-  public teamName: string;
+  id!: number;
+  teamName!: string;
 }
 
 TeamModel.init({

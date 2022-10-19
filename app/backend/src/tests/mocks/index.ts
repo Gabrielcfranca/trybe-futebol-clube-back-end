@@ -2,9 +2,9 @@ import * as bcrypt from 'bcryptjs';
 import { createToken } from '../../helpers/token';
 
 const mockUser = {
-  email: "ronaldo@fenomeno.com",
-  password: "EuSouRonaldo09",
-  role: "boleiro"
+  email: "gabriel@teste.com",
+  password: "testepass",
+  role: "admin"
 };
 
 const mockLogin = {

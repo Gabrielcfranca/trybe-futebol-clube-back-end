@@ -8,9 +8,9 @@ export interface IMatch {
 }
 
 export interface ILeaderMatch extends IMatch {
-  id?: number;
-  homeTeamGoals?: number,
-  awayTeamGoals?: number,
+  id: number;
+  homeTeamGoals: number,
+  awayTeamGoals: number,
 }
 
 export interface IMatchTeams extends IMatch {

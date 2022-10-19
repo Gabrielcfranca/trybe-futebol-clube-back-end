@@ -1,16 +1,14 @@
 import { BOOLEAN, INTEGER, Model } from 'sequelize';
 import db from '.';
 import TeamModel from './TeamModel';
-// import OtherModel from './OtherModel';
 
 class Match extends Model {
-  // public <campo>!: <tipo>;
-  public id!: number;
-  public homeTeam!: number;
-  public homeTeamGoals!:number;
-  public awayTeam!: number;
-  public awayTeamGoals!:number;
-  public inProgress!: number;
+  id!: number;
+  homeTeam!: number;
+  homeTeamGoals!:number;
+  awayTeam!: number;
+  awayTeamGoals!:number;
+  inProgress!: number;
 }
 
 Match.init({
