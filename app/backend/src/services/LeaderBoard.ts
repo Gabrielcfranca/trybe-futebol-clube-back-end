@@ -70,6 +70,7 @@ export default class LeaderBoardService {
         totalLosses: acc.totalLosses + losses,
         goalsFavor: acc.goalsFavor + hometeam,
         goalsOwn: acc.goalsOwn + awayteam,
+        totalGames: acc.totalGames + 1,
       };
     }, this.boardData(team.teamName));
     return tableResult;
