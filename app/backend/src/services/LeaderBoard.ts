@@ -126,3 +126,5 @@ export default class LeaderBoardService {
     return sortedBoard;
   };
 }
+
+// add comentario para novo testes.
